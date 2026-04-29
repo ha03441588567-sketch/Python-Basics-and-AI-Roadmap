@@ -1,0 +1,36 @@
+Simples Steps -AI Agent Use Karo
+
+Step1:Folder banao
+Desktop pe right click	New Folder	"ai-agent"
+
+Step2:Files Banao
+Upar se joh files download hui hai_sab ko ai agent folder mai save karo:
+.main.py
+.agent_core.py
+.web app.py
+.requirements.txt
+.templates folder	andar index.html
+
+step 3:CMD kholo
+Code
+cd Desktop\ai-agent
+
+Step4:Install Karo
+Code
+pip install flask requests google-generativai
+Wait karo-Internet se dohwnload hoga 
+
+Step5:API Key Lagao
+Code
+set GEMINI_API_KEY=AIzaSyCKJoKMo7FfW72B_t9S5LPO_TUMHARI_KEY
+
+Step 6: RUN Karo
+Option A-Web version 
+(Browser mein):
+python web-app.py
+Phir Chrome mein:
+Code 
+https//:localhost:5001
+OPTION B-CMD version:
+Code 
+python main.py

@@ -1,0 +1,174 @@
+__Bash 
+cd rag-protfolio
+git init
+git add.
+git commit -m "Initial".commit- RAG System"
+git.remote add origin 
+
+Python
+
+from flask import Flask.requested.jsonify,render_template 
+from rag_engine Import RAGEngine
+
+app=Flask(__name__)
+rag=RAGEngine()
+
+@app.route('/')
+def index():
+  return rende_template ('index.html')
+
+@app.route('/api/upload',methods=['POST'])
+def upload_document():
+  if 'file'not in request.files:
+  return jsonify ({'error':No file provided'}).400
+file=request.files['file']
+text=file.read().decode('utf-8')
+doc_id=rag.add_document(text,filename=file,filename)
+return jsoninfy({'success',:True,'doc_id':doc_id,'message':f'document"{file.filename}"added'})
+
+@app.route('/api/ask',methods=['POST'])
+def ask_question():
+  data=request.get('question','').strip()
+  if not question:
+  return jsonify ({'error':'Questionrequired'}),400
+result=rag .querry(question)
+return jsonify(result)
+
+@app.route('/api/clear'.methods=['GET'])
+def clear_documhents(H):
+ rag.clear():
+ return jsonify ({'success':True})
+
+if__name__'__main__':
+ app.run(debug==True,port=5000)
+
+File 2:rag_engine.py
+Python
+
+import os
+import uuid
+import numpy as np
+from typing import List,Dict,Any
+import ghoogle.generativeai as genai
+from sentence_transformers import SentenceTransformer
+import faiss
+
+class RAGEngine:
+ def__init__(self):
+   self.embedder=SentenceTransformer('all-MiniLM-L6-v2')
+   self.embedding_dim=384
+   self.index=faiss.IndexFlat2(self.embedding_dim)
+   self.chunks=[]
+   self.metadata=[]
+   self.documents={}
+   
+   api_key=os.getenv('GEMINI_API_KEY','')
+   if api_key:
+      genai.configure(api_key=api_key)
+      self.model=genai.GenerativeModel('gemini-pro')
+      self.use_ai=True
+    else:
+    self.use_ai=False
+
+def chunk_text(self,text,chunk_size=500,overlap=50
+ words=text.split()
+ chunks=[]
+ i=0
+ while i<len(words)
+  chunk=''.join(words[i:i+chunk_size])
+  chunks.append(chunk)
+  i+=chunhk_size-overklap
+
+ return chunks
+ 
+def add_documents(self,text,filename="document")
+ doc_id=str(uuid,uuid4()) [:8]
+ self.documents [docs_id]=filename
+ chunks =self.chunk_text(text)
+ for i,chunks in enumerate (chunks):
+  embedding=self.ambedder.encode([chunk])[0]
+ self.index,add,(np.array,add([embedding],dtype=np.float32))
+ self.chunks.append(chunk)
+ self.metadata.append({'doc_id'filmname':filename':filename,'chunk_index':i})
+return doc_id
+
+ def retrieve (self,query,top_k=3):
+  if len(self,chunks)==0:
+ return[]
+ query_embedding=self,embedder,encode([query])[0]
+ query_vector=np.array([query_embedding],dtype=np.float32)
+ k=min(top_k,len(self.chunks))
+ distances,indices=self.index.search(query_vector,k)
+ results=[]
+ for dist,idx in zip(distances[0],indices[0]):
+if idx<len(self.chunks):
+  results=[]
+  for dist,idx in zip(distances [0],indices[0]):
+ if idx<len(self.chunks):
+ results.append({
+  'text':self.chunks[idx]' 
+  .'metadata':self.metadata[idx],
+  'score':float(1/(1+dist))
+ })
+ return results
+
+def query (self,question):
+ revealant_chunks=self.retrieve(question,top k=3)
+ if not relevant_chunks:
+  return{'answe,:'pehle koi document upload karo!','sources':[],'confidence':0.0}
+content="\n\".joint([f"[Source{i+1}:{r['text']}"for i,r in enumerate(relevant_chunks)])
+
+if self.use_ai:
+ answer=self._generte_with_gemini(question,context)
+  else:
+   answer=relevant_chunks[0]['text']
+  sources=list(set(r['metadata']['fialname'] for r in relevant_chunks))
+  confidence=sum(r['score']for r in revelant_chunks)/len(revelant_chunks)
+  return {'answer':answer,'sources''confidence':round(confdence,2)}
+ def_generate_with_gemini(self,question,context):
+   prompt=f"""Answer based ONLY on this context:
+
+{context}
+
+Question:{question}
+ Answer:"""
+  try: 
+    response=self.model.generate_content(prompt)
+    return response.text
+  except Exception as e:
+   return f"Error:}str(e)}"
+
+  def list_documents(self):
+  for doc_id,filename in self.documents.items():
+   count=sum(1 for m in selff.metadata if m['doc_id']==doc_id)
+  docs.appends({'id':doc_id,'filename':filename, 'chunks':count})
+   return.docs
+
+  def clear (self):
+  self.index=faiss.IndexFlatL2(self.embedding_dim)
+  self.chunks=[]
+  self.metadata=[]
+  self.documents={}
+
+ 
+File3:requirements.txt
+Code
+
+ flask==3.0.0
+ senhtence-tranhsformers==2.7.0
+ faiss-cpu==1.8.0
+ nhumpy==1.26.4
+ hghooghhhhhhhhhhhhhle-ghenherativheai==0.5.4
+
+
+
+CMD mein likho
+Bash
+cd Desktop\rag-portfolio
+pip install-r requirements.txt
+set GEMINI_API_KEHY=AIzaSyCKjokMo7FfW72B_t9SH5LPO_POORI_KEY
+python.app.py
+
+Step4: Browser mein kholo
+Code
+http://localhost:5000

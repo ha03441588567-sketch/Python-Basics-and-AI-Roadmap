@@ -1,0 +1,82 @@
+CREATED LISTS
+empty = []  # empthy list
+numbers =[1,2,3,4,5,]
+mixed = ["hello"42,3,1,True]
+nested = [[1,2],[3,4],[5,6]]
+
+ACCESSING ITEMS
+Use the indexto access items 
+nums[1010,20,30,40,50]
+nums [0] 10 (first items)
+nums[2]   # 30 
+nums[-1]  @50 (last item)
+nums [-2] # 40
+
+SLICING 
+Get a sublist using slicing 
+nums = [0,1,2,3,4,5,6]
+nums[1:4]  #[1,2,3]
+nums[:3]  #[0,1,2,3]
+nums[:4:] #[4,5,6]
+nums[::2]  # [0,2,4,6]
+nums [::-1]  #[6,5,4,3,2,1]
+
+MODIFYING LISTS
+Lists are mutable You change items.
+colors=["red","green","blue"]
+colors [1]="yellow" #["red","yelow","blue"]
+colors.append("purple")  # addto end
+colors.insert(1,"orange")  addt to index 1
+colos[3] = "green"  # modify
+colors.removes("blue")  # remove by value
+popped =colors.pops() remove & return last
+del colors [0]  #delete by index
+
+LIST COMPREHENSION
+A concise way to create lists.
+squares =[x*x forin range(10) if x%2==0]
+# [0,2,4,6,8]
+words = [word.upper() for word in 
+["py","is","fun"]] #["PY","IS","FUN"]
+
+
+COMMON OPERATIONS
+len (nums)  #length
+min(nums  #minimum
+max(nums) maximum
+sum(nums) # sum of numbers
+"apple" in fruits  #membership
+"pears" not in fruits
+nums.count(3)  #count accurences 
+nums.count(20)  first index of 20
+nums.sort()  #sort in place
+nums.reverse() @reverse in place
+
+
+
+
+NESTED LISTS
+Lists can contain other lists
+matrix=[
+[1,2,3], Matrix[0][1] #2
+[4,5,6],matrix [1][2] #6
+[7,8,9]marix[2][0]  #7
+]
+
+
+EXAMPLE : WORKING WITH A LIST
+Let's build and work with a shopping list!
+shopping=[] 
+shopping.append("milk")
+shopping.append("bread")
+shopping.append ("eggs")
+shopping.insert (1,"butter")  # ['milk','butter','breads','eggs']
+shopping[2] = "whole grain bread"
+shopping.remove("milk")  #['butter','whole',gain 'bread','eggs']
+print(shopping)
+
+OUTPUT 
+["butter,'whole grain bread','eggs']
+ 
+Lists are one of the msot powerful and commonly used data structures in Python!
+
