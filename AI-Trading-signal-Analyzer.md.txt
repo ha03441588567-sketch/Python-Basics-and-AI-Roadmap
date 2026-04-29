@@ -1,0 +1,113 @@
+ markdown
+
+#  SignalForge AI - Trading Signal Analyzer
+AI - powered **BUY/SELL signal generator** for
+XAU/USD and Crypto pairs.Built with claude API,
+Python FastAPI,and Next.js.
+
+---
+
+##  Features
+
+**Chart Screenshot Analysis**- Upload
+TradingView/MT4 chart screenshots and get instant 
+AI-driven signals.
+***Manual Indicator Input**- Support for RSI,
+MACD,EMA,and Support/Resistance levels,
+***Multi-pair Support** - XAU/USD,BTC/USDT,
+ETH/USDT,BNB/USDT,and SOL/USDT.
+***Complete Signal Output**- Includes Entry
+price,Stoploss (SL),Take Profit(TP),and 
+Risk:Reward ratio.
+***Confidence Score**-AI-generated
+ confidence percentage for every signal.
+ ***Telegram Ready**-One-click copy formatted
+ signals,ready for Telegram groups.
+ ***Signal History**- Easily track your last 5 
+ signals.
+
+ ---
+
+ ##  Tech Stack
+
+ ***Frontend**HTML/CSS/JS (Web) & Next.js
+ (v2)
+ ***Backend:**python + FastAPI
+ ***AI Engine:**Anthropic Claude Sonnet (Vision
+ + Text)
+ ***Bot:** `python-telegram-bot`
+ ***Hosting:**Vercel (Frontend) + Railway 
+ (Backend)
+
+ ## Project Structure
+
+ ```text
+ signalforge-ai/
+ |--- frontend/
+| |--- index.html   # Web dashboard
+| |---styles/
+| |___app.js
+|---backend/
+| |---main.py  #FastAPI server
+| |---analyzer.py   # Claude API Integration
+| |---rules_engine.py # rules-based signal
+logic
+| |___telegram_bot.py # Telegram bot handler
+ |--- docs/
+| |___api.md
+  |___README.md
+
+  Setup (Local)
+
+1. Clone the Repository
+
+ bash 
+
+ git clone [https://github.com/karamhussain 
+ /signalforge-ai] (https://github.com
+ /karamhussain/signalforge-ai)
+ cd signal forge-ai
+
+2.Backend Setup
+
+ bash
+
+ cd backend 
+ pip install fastapi uvicorn anthropic 
+ python-telegram-bot
+ cp.env.example.env
+ #Add your ANTHROPIC_API_KEY and
+ TELEGRRAM_BOT_TOKEN in.env
+ uvicorn main:app--reload 
+
+3.Frontend Setup
+
+Just open index.htmlin your browser or:
+
+ bash
+ 
+ cd frontend && npx serve
+
+ ENVIRONMENT VARIABLES 
+
+ env
+ 
+ ANTHROPIC_API_KEY=your-key-here
+ TELEGRAM_BOT_TOKEN=Your_token-here
+ ALLOWED_PARIS=XAUUSD,BTCUSDT,ETHUSDT,BNB
+ USDT
+
+ API Endpoint
+ . POST/analyze
+   .Body:{pair,image_base64?,rsi?,
+     macd?,ema?.support?,resistance?}
+
+   . Returns:{"signal","confidence","entry",
+     "sl","tp","rr","analysis"}
+   .GET/health
+      JSON 
+   .Returns:{"status":"ok"}
+   
+
+
+ 
